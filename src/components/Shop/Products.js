@@ -13,6 +13,7 @@ const Products = (props) => {
 
 const cart = useSelector(state => state.items)
 const totalQuantity = useSelector(state => state.totalQuantity)
+const cartChanged = useSelector(state => state.changed)
   const DUMMY_PRODUCTS = [
     { title: "Salad", price: 15, description: "Mix Vegi Salad", id: 1 },
     { title: "Chicken Sandwich", price: 10, description: "Delicious Chicken Sandwich", id: 2 },
@@ -21,7 +22,9 @@ const totalQuantity = useSelector(state => state.totalQuantity)
   useEffect(() => {
     if(!isFirstRun){
 
+      if(cartChanged) {
     dispatch(sendCartData({cart, totalQuantity}))
+      }
     }
 
     isFirstRun = false

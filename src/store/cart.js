@@ -5,7 +5,8 @@ const initialState = { items: [],
     totalQuantity: 0,
     toggle: false,
     status: '',
-    httpPutError: null
+    httpPutError: null,
+    changed: false
 }
     
 
@@ -22,6 +23,7 @@ const cartSlice = createSlice({
             state.items[itemIndex].quantity = state.items[itemIndex].quantity + 1
             state.items[itemIndex].total = state.items[itemIndex].quantity * state.items[itemIndex].price
             state.totalQuantity++
+            state.changed = true
         },
         remove(state, actions) {
             
@@ -34,6 +36,8 @@ const cartSlice = createSlice({
             else {
                 state.items.splice(itemIndex, 1)
             }
+
+            state.changed = true
         },
         addToCart(state, actions) {
             const newItem = actions.payload
@@ -57,6 +61,7 @@ const cartSlice = createSlice({
                 })
             }
             state.totalQuantity++
+            state.changed = true
         },
         toggleCart(state) {
             state.toggle = !state.toggle
